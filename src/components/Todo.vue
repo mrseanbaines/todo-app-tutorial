@@ -2,10 +2,10 @@
   <div class='ui centered card'>
     <div class="content" v-show="!isEditing">
       <div class='header'>
-          {{ todo.title }}
+        {{ todo.title }}
       </div>
       <div class='meta'>
-          {{ todo.project }}
+        {{ todo.project }}
       </div>
       <div class='extra content'>
         <span class='right floated edit icon' v-on:click="showForm">
@@ -34,35 +34,35 @@
       </div>
     </div>
     <div class='ui bottom attached green basic button' v-show="!isEditing &&todo.done" disabled>
-        Completed
+      Completed
     </div>
-    <div class='ui bottom attached red basic button' v-show="!isEditing && !todo.done">
-        Pending
+    <div class='ui bottom attached red basic button' v-on:click="completeTodo(todo)" v-show="!isEditing && !todo.done">
+      Pending
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  props: ['todo'],
-  data() {
-    return {
-      isEditing: false,
-    };
-  },
-  methods: {
-    showForm() {
-      this.isEditing = true;
+<script type="text/javascript">
+  export default {
+    props: ['todo'],
+    data() {
+      return {
+        isEditing: false,
+      };
     },
-    hideForm() {
-      this.isEditing = false;
+    methods: {
+      completeTodo(todo) {
+        this.$emit('complete-todo', todo);
+      },
+      deleteTodo(todo) {
+        this.$emit('delete-todo', todo);
+      },
+      showForm() {
+        this.isEditing = true;
+      },
+      hideForm() {
+        this.isEditing = false;
+      },
     },
-    deleteTodo(todo) {
-      this.$emit('delete-todo', todo);
-    },
-    completeTodo(todo) {
-      this.$emit('complete-todo', todo);
-    },
-  },
-};
+  };
 </script>
